@@ -1,0 +1,37 @@
+Allie Clifford
+Assignment 1: HTTP Server
+Due: 11:59 PM, Feb 5th
+
+In this assignment, I wrote a simple web server that understands the
+HTTP protocol and responds to basic GET requests. Per the assignment
+specification, the server will respond to two URLs: one which returns
+a JSON dictionary describing IP addresses and the corresponding
+locations of recent connections to the page, and one which displays some
+very basic information about me. I have employed rate limiting to
+prevent users from overwhelming the server. These web pages do not 
+correspond to files, but are constructed by the program in response
+to each request. The server handles one client at a time and per the 
+assignment specification should never quit (unless some error is 
+encountered).
+
+Requirements of the program: Takes one command line argument:
+A port number on which to listen for requests.
+Accepts TCP requests from web browsers/clients and responds with a 
+single page of content based on the URL:
+1. The main page (/): A valid JSON list of the most recent 10 
+IP addresses that accessed it. Each IP address is associated with 
+the number of times the main page has been accessed from that 
+specific address and the city where that IP originated from.
+2. Another version of the main page (/): This is the page that appears
+if a user is being rate limited.  It contains a simple warning 
+message
+3. An about page (about.html): A sentence or two about me
+Returns a proper HTTP/1.1 404 Not Found as the HTTP response if a 
+URL other than "/" or "about.html" is requested.
+
+The requirement for the main page is satisfied by keeping records in
+the server about the identities of the addresses that send requests. Per 
+the assignment specifications, this is done in memory.
+
+For more details on how students were instructed to implement this 
+server, see COMP112_A1_Spring2018.pdf.
