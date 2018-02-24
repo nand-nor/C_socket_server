@@ -238,8 +238,8 @@ void call_write(int sock, char *response, int size){
  */
 void parse_req(int sock, char *buffer, char *response, int limit_flag) { 
         char dest[12];
-        char compare[11];
-        strncpy(dest, &buffer[4],11);
+        char compare[12];
+        strncpy(dest, &buffer[4],12);
         dest[11] = '\0'; 
         strcpy(compare, "/about.html\0"); 
         if(limit_flag){      
