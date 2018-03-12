@@ -6,8 +6,8 @@
  *
  * a1.c
  *
- * C program intended to implement a socket-based
- * web server to serve via TCP and the HTTP protocol
+ * C program intended to implement a simple socket-based
+ * web server, serving HTTP via TCP protocol
  *
  */
 
@@ -414,7 +414,8 @@ void error_page(int sock, char * response) {
  */
 void launch_home(int sock, char *response) {
         char list[10*(sizeof(struct cli_conn))]; 
-        char *resp = "HTTP/1.1 200 OK\r\nContent-type: application/json\r\n\r\n";
+        char *resp = "HTTP/1.1 200 OK\r\nConnection: close\r\n\
+Content-type: application/json\r\n\r\n";
         memcpy(response,resp,strlen(resp)); 
         call_write(sock, response, strlen(response));
         get_cli_info(list);
@@ -462,11 +463,10 @@ void get_cli_info(char *list) {
  * some details about me to the response buffer
  */
 void launch_about(int sock, char *response) { 
-        char *resp = "HTTP/1.1 200 OK\r\nContent-type: \
-text/html\r\n\r\n<html><header><h1>About Me</h1> \
+        char *resp = "HTTP/1.1 200 OK\r\nConnection: close\r\n\
+Content-type: text/html\r\n\r\n<html><header><h1>About Me</h1> \
 </header>\r\n\r\n<body><p>Name:Allie Clifford</p>\r\n \
-<p>Age:2(100%17)</p>\r\n<p>Favorite plant:Monotropa \
-Uniflora</p></body></html>\r\n";
+<p>Favorite plant:Monotropa Uniflora</p></body></html>\r\n";
         memcpy(response, resp, strlen(resp));
         call_write(sock, response, strlen(response));
 }       
@@ -479,8 +479,7 @@ Uniflora</p></body></html>\r\n";
  * is modified for the needs of this assignment
  */
 void launch_timeout(int sock, char *response) { 
-        char *resp = "HTTP/1.1 420 User has exceeded maximum connection \
-attempts. Try again in 30 seconds\r\n";
+        char *resp = "HTTP/1.1 420 Rate Limit User\r\nConnection: close\r\n\r\n";
         memcpy(response, resp, strlen(resp));       
         call_write(sock, response, strlen(response));
 }
